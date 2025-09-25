@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
+	"github.com/gin-gonic/gin"
 
 	"github.com/go-rod/rod"
 	"github.com/sirupsen/logrus"
@@ -19,8 +20,18 @@ func main() {
 	flag.StringVar(&binPath, "bin", "", "浏览器二进制文件路径")
 	flag.Parse()
 
+	r := gin.Default()
+	r.StaticFile("/qrcode.png", "./assets/qrcode.png")
+	go func() {
+		err := r.Run("0.0.0.0:8999")
+		if err != nil {
+			logrus.Errorf("启动http服务失败：%v", err)
+			return
+		}
+	}()
+
 	// 登录的时候，需要界面，所以不能无头模式
-	b := browser.NewBrowser(false, browser.WithBinPath(binPath))
+	b := browser.NewBrowser(true, browser.WithBinPath(binPath))
 	defer b.Close()
 
 	page := b.NewPage()

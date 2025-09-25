@@ -49,6 +49,8 @@ func (a *LoginAction) Login(ctx context.Context) error {
 		return nil
 	}
 
+	pp.MustScrollScreenshot("./assets/qrcode.png")
+
 	// 等待扫码成功提示或者登录完成
 	// 这里我们等待登录成功的元素出现，这样更简单可靠
 	pp.MustElement(".main-container .user .link-wrapper .channel")

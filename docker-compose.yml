@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  xhs-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: xhs-mcp-1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"   # 每个日志文件最大 10 MB
+        max-file: "10"     # 最多保留 5 个日志文件，多余的将自动删除
+    environment:
+      TZ: "Asia/Shanghai"
+      COOKIE_NAME: "1"
+      MCP_PORT: "18060"
+      FILE_PORT: "8999"
+    command: ["/app/betterus/xhs-mcp/mcp_server"]
+    volumes:
+      - /app:/app
+      - /logs/xhs-bot:/log
+    network_mode: "host"
+    ports:
+      - 18060:18060
+      - 8999:8999

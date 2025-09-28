@@ -40,3 +40,8 @@ test_*.sh
 
 # Cookies files (contain sensitive login information)
 cookies.json
+
+login
+mcp_server
+
+.DS_Store

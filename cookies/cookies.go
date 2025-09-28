@@ -57,5 +57,5 @@ func GetCookiesFilePath() string {
 	}
 
 	// 文件不存在，使用新路径（当前目录）
-	return "cookies.json"
+	return "/app/betterus/xhs-mcp/cookies-" + os.Getenv("COOKIE_NAME") + ".json"
 }

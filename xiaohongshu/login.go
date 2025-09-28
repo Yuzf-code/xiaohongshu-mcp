@@ -2,6 +2,7 @@ package xiaohongshu
 
 import (
 	"context"
+	"os"
 	"time"
 
 	"github.com/go-rod/rod"
@@ -49,7 +50,14 @@ func (a *LoginAction) Login(ctx context.Context) error {
 		return nil
 	}
 
-	pp.MustScrollScreenshot("./assets/qrcode.png")
+	filePath := "/app/betterus/xhs-mcp/assets/qrcode.png"
+	pp.MustScrollScreenshot(filePath)
+	defer func() {
+		err := os.Remove(filePath)
+		if err != nil {
+			return
+		}
+	}()
 
 	// 等待扫码成功提示或者登录完成
 	// 这里我们等待登录成功的元素出现，这样更简单可靠

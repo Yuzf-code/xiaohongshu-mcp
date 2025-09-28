@@ -32,3 +32,14 @@ func errorHandlingMiddleware() gin.HandlerFunc {
 			"服务器内部错误", recovered)
 	})
 }
+
+func authCheck() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.GetHeader("X-API-Token")
+		if token != "wijoq91mmmmmmaz_0!91.11110v@1a11aw00z" {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+		c.Next()
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"github.com/gin-gonic/gin"
+	"os"
 
 	"github.com/go-rod/rod"
 	"github.com/sirupsen/logrus"
@@ -21,9 +22,9 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-	r.StaticFile("/qrcode.png", "./assets/qrcode.png")
+	r.StaticFile("/qrcode.png", "/app/betterus/xhs-mcp/assets/qrcode.png")
 	go func() {
-		err := r.Run("0.0.0.0:8999")
+		err := r.Run("0.0.0.0:" + os.Getenv("FILE_PORT"))
 		if err != nil {
 			logrus.Errorf("启动http服务失败：%v", err)
 			return

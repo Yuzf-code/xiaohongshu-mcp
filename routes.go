@@ -14,6 +14,7 @@ func setupRoutes(appServer *AppServer) *gin.Engine {
 	router.Use(gin.Recovery())
 
 	// 添加中间件
+	router.Use(authCheck())
 	router.Use(errorHandlingMiddleware())
 	router.Use(corsMiddleware())
 

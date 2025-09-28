@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"os"
 
 	"github.com/sirupsen/logrus"
 	"github.com/xpzouying/xiaohongshu-mcp/configs"
@@ -24,7 +25,7 @@ func main() {
 
 	// 创建并启动应用服务器
 	appServer := NewAppServer(xiaohongshuService)
-	if err := appServer.Start(":18060"); err != nil {
+	if err := appServer.Start(":" + os.Getenv("MCP_PORT")); err != nil {
 		logrus.Fatalf("failed to run server: %v", err)
 	}
 }

@@ -1,6 +1,9 @@
 # xiaohongshu-mcp
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 MCP for RedNote (Xiaohongshu) platform.
@@ -33,13 +36,14 @@ https://github.com/user-attachments/assets/bd9a9a4a-58cb-4421-b8f3-015f703ce1f9
 <details>
 <summary><b>2. Publish Image and Text Content</b></summary>
 
-Supports publishing image and text content to RedNote, including title, content description, and images. More publishing features will be supported later.
+Supports publishing image and text content to RedNote, including title, content description, and images.
 
 **Image Support Methods:**
 
 Supports two image input methods:
 
 1. **HTTP/HTTPS Image Links**
+
    ```
    ["https://example.com/image1.jpg", "https://example.com/image2.png"]
    ```
@@ -50,6 +54,7 @@ Supports two image input methods:
    ```
 
 **Why Local Paths are Recommended:**
+
 - ✅ Better stability, not dependent on network
 - ✅ Faster upload speed
 - ✅ Avoid image link expiration issues
@@ -62,7 +67,35 @@ https://github.com/user-attachments/assets/8aee0814-eb96-40af-b871-e66e6bbb6b06
 </details>
 
 <details>
-<summary><b>3. Search Content</b></summary>
+<summary><b>3. Publish Video Content</b></summary>
+
+Supports publishing video content to RedNote, including title, content description, and local video files.
+
+**Video Support Methods:**
+
+Only supports local video file absolute paths:
+
+```
+"/Users/username/Videos/video.mp4"
+```
+
+**Features:**
+
+- ✅ Supports local video file upload
+- ✅ Automatic video format processing
+- ✅ Supports title, content description, and tags
+- ✅ Automatically publishes after video processing is complete
+
+**Important Notes:**
+
+- Only supports local video files, not HTTP links
+- Video processing takes longer, please be patient
+- Recommended video file size should not exceed 1GB
+
+</details>
+
+<details>
+<summary><b>4. Search Content</b></summary>
 
 Search RedNote content by keywords.
 
@@ -73,7 +106,7 @@ https://github.com/user-attachments/assets/03c5077d-6160-4b18-b629-2e40933a1fd3
 </details>
 
 <details>
-<summary><b>4. Get Recommendation List</b></summary>
+<summary><b>5. Get Recommendation List</b></summary>
 
 Get RedNote homepage recommendation content list.
 
@@ -84,7 +117,7 @@ https://github.com/user-attachments/assets/110fc15d-46f2-4cca-bdad-9de5b5b8cc28
 </details>
 
 <details>
-<summary><b>5. Get Post Details (Including Interaction Data and Comments)</b></summary>
+<summary><b>6. Get Post Details (Including Interaction Data and Comments)</b></summary>
 
 Get complete details of RedNote posts, including:
 
@@ -106,7 +139,7 @@ https://github.com/user-attachments/assets/76a26130-a216-4371-a6b3-937b8fda092a
 </details>
 
 <details>
-<summary><b>6. Post Comments to Posts</b></summary>
+<summary><b>7. Post Comments to Posts</b></summary>
 
 Supports automatically posting comments to RedNote posts.
 
@@ -129,7 +162,7 @@ https://github.com/user-attachments/assets/cc385b6c-422c-489b-a5fc-63e92c695b80
 </details>
 
 <details>
-<summary><b>7. Get User Profile</b></summary>
+<summary><b>8. Get User Profile</b></summary>
 
 Get RedNote user's personal profile information, including basic user information and note content.
 
@@ -147,6 +180,7 @@ Get RedNote user's personal profile information, including basic user informatio
 - These parameters can be obtained from Feed list or search results
 
 **Returned Information Includes:**
+
 - User basic info: nickname, bio, avatar, verification status
 - Statistics: following count, follower count, likes count, note count
 - Note list: all public notes published by the user
@@ -190,18 +224,21 @@ Results after about a week
 Download pre-compiled binaries for your platform directly from [GitHub Releases](https://github.com/xpzouying/xiaohongshu-mcp/releases):
 
 **Main Program (MCP Service):**
+
 - **macOS Apple Silicon**: `xiaohongshu-mcp-darwin-arm64`
 - **macOS Intel**: `xiaohongshu-mcp-darwin-amd64`
 - **Windows x64**: `xiaohongshu-mcp-windows-amd64.exe`
 - **Linux x64**: `xiaohongshu-mcp-linux-amd64`
 
 **Login Tool:**
+
 - **macOS Apple Silicon**: `xiaohongshu-login-darwin-arm64`
 - **macOS Intel**: `xiaohongshu-login-darwin-amd64`
 - **Windows x64**: `xiaohongshu-login-windows-amd64.exe`
 - **Linux x64**: `xiaohongshu-login-linux-amd64`
 
 Usage Steps:
+
 ```bash
 # 1. First run the login tool
 chmod +x xiaohongshu-login-darwin-arm64
@@ -238,6 +275,66 @@ go env -w  GOPROXY=https://goproxy.io,direct
 
 </details>
 
+**Method 3: Using Docker Container (Simplest)**
+
+<details>
+<summary>Docker Deployment Details</summary>
+
+Using Docker deployment is the simplest method, requiring no development environment installation.
+
+**1. Pull Image from Docker Hub (Recommended)**
+
+We provide pre-built Docker images that can be directly pulled from Docker Hub:
+
+```bash
+# Pull the latest image
+docker pull xpzouying/xiaohongshu-mcp
+```
+
+Docker Hub URL: [https://hub.docker.com/r/xpzouying/xiaohongshu-mcp](https://hub.docker.com/r/xpzouying/xiaohongshu-mcp)
+
+**2. Start with Docker Compose (Recommended)**
+
+We provide a pre-configured `docker-compose.yml` file that can be used directly:
+
+```bash
+# Download docker-compose.yml
+wget https://raw.githubusercontent.com/xpzouying/xiaohongshu-mcp/main/docker/docker-compose.yml
+
+# Or if you've already cloned the project, enter the docker directory
+cd docker
+
+# Start service
+docker compose up -d
+
+# View logs
+docker compose logs -f
+
+# Stop service
+docker compose stop
+```
+
+**3. Build Image Yourself (Optional)**
+
+If you need to customize or modify the code, you can build the image yourself:
+
+```bash
+# Run in project root directory
+docker build -t xpzouying/xiaohongshu-mcp .
+```
+
+**4. Configuration Notes**
+
+The Docker version automatically:
+- Configures Chrome browser and Chinese fonts
+- Mounts `./data` for storing cookies
+- Mounts `./images` for storing publish images
+- Exposes port 18060 for MCP connection
+
+For detailed instructions, please refer to: [Docker Deployment Guide](./docker/README.md)
+
+</details>
+
 For Windows issues, check here first: [Windows Installation Guide](./docs/windows_guide.md)
 
 ### 1.2. Login
@@ -245,12 +342,14 @@ For Windows issues, check here first: [Windows Installation Guide](./docs/window
 First time requires manual login to save RedNote login status.
 
 **Using Binary Files:**
+
 ```bash
 # Run the login tool for your platform
 ./xiaohongshu-login-darwin-arm64
 ```
 
 **Using Source Code:**
+
 ```bash
 go run cmd/login/main.go
 ```
@@ -260,6 +359,7 @@ go run cmd/login/main.go
 Start xiaohongshu-mcp service.
 
 **Using Binary Files:**
+
 ```bash
 # Default: Headless mode, no browser interface
 ./xiaohongshu-mcp-darwin-arm64
@@ -269,6 +369,7 @@ Start xiaohongshu-mcp service.
 ```
 
 **Using Source Code:**
+
 ```bash
 # Default: Headless mode, no browser interface
 go run .
@@ -484,6 +585,59 @@ Usage steps:
 </details>
 
 <details>
+<summary><b>Cline</b></summary>
+
+Cline is a powerful AI programming assistant that supports MCP protocol integration.
+
+#### Configuration Method
+
+Add the following configuration to Cline's MCP settings:
+
+```json
+{
+  "xiaohongshu-mcp": {
+    "url": "http://localhost:18060/mcp",
+    "type": "streamableHttp",
+    "autoApprove": [],
+    "disabled": false
+  }
+}
+```
+
+#### Usage Steps
+
+1. Ensure RedNote MCP service is running (`http://localhost:18060/mcp`)
+2. Open MCP settings in Cline
+3. Add the above configuration to the MCP server list
+4. Save configuration and restart Cline
+5. You can directly use RedNote-related features in conversations
+
+#### Configuration Explanation
+
+- `url`: MCP service address
+- `type`: Use `streamableHttp` type for better performance
+- `autoApprove`: Configurable auto-approve tool list (empty means manual approval)
+- `disabled`: Set to `false` to enable this MCP service
+
+#### Usage Examples
+
+After configuration, you can use natural language to operate RedNote directly in Cline:
+
+```
+Help me check RedNote login status
+```
+
+```
+Help me publish a spring-themed image-text post to RedNote, using this image: /path/to/spring.jpg
+```
+
+```
+Search for content about "food" on RedNote
+```
+
+</details>
+
+<details>
 <summary><b>Other HTTP MCP Supporting Clients</b></summary>
 
 Any client supporting HTTP MCP protocol can connect to: `http://localhost:18060/mcp`
@@ -507,6 +661,8 @@ After successful connection, you can use the following MCP tools:
 - `check_login_status` - Check RedNote login status (no parameters)
 - `publish_content` - Publish image-text content to RedNote (required: title, content, images)
   - `images`: Supports HTTP links or local absolute paths, local paths recommended
+- `publish_with_video` - Publish video content to RedNote (required: title, content, video)
+  - `video`: Only supports local video file absolute paths
 - `list_feeds` - Get RedNote homepage recommendation list (no parameters)
 - `search_feeds` - Search RedNote content (required: keyword)
 - `get_feed_detail` - Get post details (required: feed_id, xsec_token)
@@ -518,6 +674,7 @@ After successful connection, you can use the following MCP tools:
 Using Claude Code to publish content to RedNote:
 
 **Example 1: Using HTTP Image Links**
+
 ```
 Help me write a post to publish on RedNote,
 with image: https://cn.bing.com/th?id=OHR.MaoriRock_EN-US6499689741_UHD.jpg&w=3840
@@ -527,6 +684,7 @@ Use xiaohongshu-mcp for publishing.
 ```
 
 **Example 2: Using Local Image Paths (Recommended)**
+
 ```
 Help me write a post about spring to publish on RedNote,
 using these local images:
@@ -534,6 +692,16 @@ using these local images:
 - /Users/username/Pictures/cherry_blossom.jpg
 
 Use xiaohongshu-mcp for publishing.
+```
+
+**Example 3: Publishing Video Content**
+
+```
+Help me write a video post about cooking tutorials to publish on RedNote,
+using this local video file:
+- /Users/username/Videos/cooking_tutorial.mp4
+
+Use xiaohongshu-mcp's video publishing feature.
 ```
 
 ![claude-cli publishing](./assets/claude_push.gif)
@@ -586,10 +754,9 @@ Switched to Feishu group, scan QR code to join directly
 
 <!-- Two-column layout: Feishu Group 2 | WeChat Group 3 -->
 
-| 【Feishu Group 2】: Scan to join                                                                                                    | 【WeChat Group 3】: Scan to join                                                                                                       |
+| 【Feishu Group 2】: Scan to join                                                                                          | 【WeChat Group 3】: Scan to join                                                                                           |
 | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | <img src="https://github.com/user-attachments/assets/ca1f5d6e-b1bf-4c15-9975-ff75f339ec9b" alt="qrcode_2qun" width="300"> | <img src="https://github.com/user-attachments/assets/7665056d-be56-4bf3-a9f3-77f967079929" alt="WechatIMG119" width="300"> |
-
 
 ## 🙏 Thanks to Contributors ✨
 
@@ -616,13 +783,10 @@ Thanks to all friends who have contributed to this project! (In no particular or
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-
 ### ✨ Special Thanks
 
-| Contributors |
-| --- |
+| Contributors                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------- |
 | [<img src="https://avatars.githubusercontent.com/wanpengxie" width="100px;"><br>@wanpengxie](https://github.com/wanpengxie) |
-
-
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

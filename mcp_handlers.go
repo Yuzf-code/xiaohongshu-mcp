@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-
 	"github.com/sirupsen/logrus"
+	"strings"
+	"time"
 )
 
 // MCP 工具处理函数
@@ -32,6 +33,46 @@ func (s *AppServer) handleCheckLoginStatus(ctx context.Context) *MCPToolResult {
 			Text: resultText,
 		}},
 	}
+}
+
+// handleGetLoginQrcode 处理获取登录二维码请求。
+// 返回二维码图片的 Base64 编码和超时时间，供前端展示扫码登录。
+func (s *AppServer) handleGetLoginQrcode(ctx context.Context) *MCPToolResult {
+	logrus.Info("MCP: 获取登录扫码图片")
+
+	result, err := s.xiaohongshuService.GetLoginQrcode(ctx)
+	if err != nil {
+		return &MCPToolResult{
+			Content: []MCPContent{{Type: "text", Text: "获取登录扫码图片失败: " + err.Error()}},
+			IsError: true,
+		}
+	}
+
+	if result.IsLoggedIn {
+		return &MCPToolResult{
+			Content: []MCPContent{{Type: "text", Text: "你当前已处于登录状态"}},
+		}
+	}
+
+	now := time.Now()
+	deadline := func() string {
+		d, err := time.ParseDuration(result.Timeout)
+		if err != nil {
+			return now.Format("2006-01-02 15:04:05")
+		}
+		return now.Add(d).Format("2006-01-02 15:04:05")
+	}()
+
+	// 已登录：文本 + 图片
+	contents := []MCPContent{
+		{Type: "text", Text: "请用小红书 App 在 " + deadline + " 前扫码登录 👇"},
+		{
+			Type:     "image",
+			MimeType: "image/png",
+			Data:     strings.TrimPrefix(result.Img, "data:image/png;base64,"),
+		},
+	}
+	return &MCPToolResult{Content: contents}
 }
 
 // handlePublishContent 处理发布内容
@@ -87,6 +128,63 @@ func (s *AppServer) handlePublishContent(ctx context.Context, args map[string]in
 			Text: resultText,
 		}},
 	}
+}
+
+// handlePublishVideo 处理发布视频内容（仅本地单个视频文件）
+func (s *AppServer) handlePublishVideo(ctx context.Context, args map[string]interface{}) *MCPToolResult {
+    logrus.Info("MCP: 发布视频内容（本地）")
+
+    title, _ := args["title"].(string)
+    content, _ := args["content"].(string)
+    videoPath, _ := args["video"].(string)
+    tagsInterface, _ := args["tags"].([]interface{})
+
+    var tags []string
+    for _, tag := range tagsInterface {
+        if tagStr, ok := tag.(string); ok {
+            tags = append(tags, tagStr)
+        }
+    }
+
+    if videoPath == "" {
+        return &MCPToolResult{
+            Content: []MCPContent{{
+                Type: "text",
+                Text: "发布失败: 缺少本地视频文件路径",
+            }},
+            IsError: true,
+        }
+    }
+
+    logrus.Infof("MCP: 发布视频 - 标题: %s, 标签数量: %d", title, len(tags))
+
+    // 构建发布请求
+    req := &PublishVideoRequest{
+        Title:   title,
+        Content: content,
+        Video:   videoPath,
+        Tags:    tags,
+    }
+
+    // 执行发布
+    result, err := s.xiaohongshuService.PublishVideo(ctx, req)
+    if err != nil {
+        return &MCPToolResult{
+            Content: []MCPContent{{
+                Type: "text",
+                Text: "发布失败: " + err.Error(),
+            }},
+            IsError: true,
+        }
+    }
+
+    resultText := fmt.Sprintf("视频发布成功: %+v", result)
+    return &MCPToolResult{
+        Content: []MCPContent{{
+            Type: "text",
+            Text: resultText,
+        }},
+    }
 }
 
 // handleListFeeds 处理获取Feeds列表

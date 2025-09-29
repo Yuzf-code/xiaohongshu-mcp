@@ -48,6 +48,19 @@ func (s *AppServer) checkLoginStatusHandler(c *gin.Context) {
 	respondSuccess(c, status, "检查登录状态成功")
 }
 
+// getLoginQrcodeHandler 处理 [GET /api/login/qrcode] 请求。
+// 用于生成并返回登录二维码（Base64 图片 + 超时时间），供前端展示给用户扫码登录。
+func (s *AppServer) getLoginQrcodeHandler(c *gin.Context) {
+	result, err := s.xiaohongshuService.GetLoginQrcode(c.Request.Context())
+	if err != nil {
+		respondError(c, http.StatusInternalServerError, "STATUS_CHECK_FAILED",
+			"获取登录二维码失败", err.Error())
+		return
+	}
+
+	respondSuccess(c, result, "获取登录二维码成功")
+}
+
 // publishHandler 发布内容
 func (s *AppServer) publishHandler(c *gin.Context) {
 	var req PublishRequest
@@ -66,6 +79,26 @@ func (s *AppServer) publishHandler(c *gin.Context) {
 	}
 
 	respondSuccess(c, result, "发布成功")
+}
+
+// publishVideoHandler 发布视频内容
+func (s *AppServer) publishVideoHandler(c *gin.Context) {
+	var req PublishVideoRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		respondError(c, http.StatusBadRequest, "INVALID_REQUEST",
+			"请求参数错误", err.Error())
+		return
+	}
+
+	// 执行视频发布
+	result, err := s.xiaohongshuService.PublishVideo(c.Request.Context(), &req)
+	if err != nil {
+		respondError(c, http.StatusInternalServerError, "PUBLISH_VIDEO_FAILED",
+			"视频发布失败", err.Error())
+		return
+	}
+
+	respondSuccess(c, result, "视频发布成功")
 }
 
 // listFeedsHandler 获取Feeds列表

@@ -1,7 +1,7 @@
 # xiaohongshu-mcp
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 MCP for 小红书/xiaohongshu.com。
@@ -190,9 +190,9 @@ https://github.com/user-attachments/assets/cc385b6c-422c-489b-a5fc-63e92c695b80
 **小红书基础运营知识**
 
 - **标题：（非常重要）小红书要求标题不超过 20 个字**
-- 当前只支持图文发送：从推荐的角度看，图文的流量会比纯文字的更好。
-- （低优先级）可以考虑视频和纯文字的支持。1. 个人感觉这两种会大大增加运营的复杂度；2. 这两类在我的使用场景的价值较低。
-- Tags：马上支持。
+- 当前支持图文发送以及视频发送：从推荐的角度看，图文的流量会比视频以及纯文字的更好。
+- （低优先级）可以考虑纯文字的支持。1. 个人感觉纯文字会大大增加运营的复杂度；2. 纯文字在我的使用场景的价值较低。
+- Tags：现已支持。添加合适的Tags能带来更多的流量。
 - 根据本人实操，小红书每天的发帖量应该是 **50 篇**。
 - **（非常重要）小红书的同一个账号不允许在多个网页端登录**，如果你登录了当前 xiaohongshu-mcp 后，就不要再在其他的网页端登录该账号，否则就会把当前 MCP 的账号“踢出登录”。你可以使用移动 App 端进行查看当前账号信息。
 
@@ -731,59 +731,16 @@ Cline 是一个强大的 AI 编程助手，支持 MCP 协议集成。
 
 ## 4. 小红书 MCP 互助群
 
-因为项目刚刚启动，会有很多问题，拉一个群大家一起讨论问题，一起为开源项目做贡献。~~扫我的微信二维码加群讨论技术~~。
+**重要：在群里问问题之前，请一定要先仔细看完 README 文档以及查看 Issues。**
 
-由于添加微信的人太多了，导致微信把我账号封禁了，原因是：处于不安全的网络中。（不确定是不是因为人太多，可能触发了微信的电信诈骗的安全检测，做了：1.实名认证；2.绑定银行卡；3.人工申诉；都没有用。）
-
-换到飞书群，直接扫码进群
-
-<details>
-<summary>【飞书一群】已满</summary>
-
-![1757903591605_副本](https://github.com/user-attachments/assets/63ad53b9-6e5d-4117-ba61-90a223494501)
-
-</details>
-
-<details>
-  <summary>【微信1群】已满 </summary>
-
-  <img src="https://github.com/user-attachments/assets/34c51c3a-d5fd-4086-9d37-a5a5284264c9" alt="WechatIMG119" width="300">
-
-</details>
-
-<details>
-  <summary>【微信2群】已满 </summary>
-
-  <img src="https://github.com/user-attachments/assets/d2c0340c-33e7-4d19-a9f5-cd581b63bd56" alt="WechatIMG119" width="300">
-
-</details>
-
-<details>
-  <summary>【微信3群】已满 </summary>
-
-  <img src="https://github.com/user-attachments/assets/7665056d-be56-4bf3-a9f3-77f967079929" alt="WechatIMG119" width="300">
-
-</details>
-
-<details>
-  <summary>【微信4群】已满 </summary>
-
-  <img src="https://github.com/user-attachments/assets/db322c69-89c3-430e-93b2-0038fbf7138e" alt="WechatIMG119" width="300">
-
-</details>
-
-<details>
-  <summary>【微信5群】已满 </summary>
-
-  <img src="https://github.com/user-attachments/assets/393965f9-6286-4b7d-9be0-7a0a2f6a75ba" alt="WechatIMG119" width="300">
-
-</details>
 
 <!-- 两列排布：飞书二群 | 微信群 -->
 
-| 【飞书二群】：扫码进入                                                                                                    | 【微信群 6 群】：扫码进入                                                                                                  |
+| 【飞书3群】：扫码进入                                                                                                    | 【微信群 8 群】：扫码进入                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/user-attachments/assets/ca1f5d6e-b1bf-4c15-9975-ff75f339ec9b" alt="qrcode_2qun" width="300"> | <img src="https://github.com/user-attachments/assets/acf75823-8270-4771-8454-24e44c20860e" alt="WechatIMG119" width="300"> |
+| <img src="https://github.com/user-attachments/assets/9a0ec41a-cb65-4f4e-a0f7-31658a49512d" alt="qrcode_2qun" width="300"> | <img src="https://github.com/user-attachments/assets/69b8169f-a3f7-42bc-b197-86c907b69ea0" alt="WechatIMG119" width="300"> |
+
+
 
 
 ## 🙏 致谢贡献者 ✨
@@ -811,6 +768,7 @@ Cline 是一个强大的 AI 编程助手，支持 MCP 协议集成。
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/varz1"><img src="https://avatars.githubusercontent.com/u/60377372?v=4?s=100" width="100px;" alt="varz1"/><br /><sub><b>varz1</b></sub></a><br /><a href="https://github.com/xpzouying/xiaohongshu-mcp/commits?author=varz1" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://google.meloguan.site"><img src="https://avatars.githubusercontent.com/u/62586556?v=4?s=100" width="100px;" alt="Melo Y Guan"/><br /><sub><b>Melo Y Guan</b></sub></a><br /><a href="https://github.com/xpzouying/xiaohongshu-mcp/commits?author=Meloyg" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lmxdawn"><img src="https://avatars.githubusercontent.com/u/21293193?v=4?s=100" width="100px;" alt="lmxdawn"/><br /><sub><b>lmxdawn</b></sub></a><br /><a href="https://github.com/xpzouying/xiaohongshu-mcp/commits?author=lmxdawn" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/haikow"><img src="https://avatars.githubusercontent.com/u/22428382?v=4?s=100" width="100px;" alt="haikow"/><br /><sub><b>haikow</b></sub></a><br /><a href="https://github.com/xpzouying/xiaohongshu-mcp/commits?author=haikow" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

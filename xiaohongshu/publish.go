@@ -33,7 +33,7 @@ const (
 
 func NewPublishImageAction(page *rod.Page) (*PublishAction, error) {
 
-	pp := page.Timeout(180 * time.Second)
+	pp := page.Timeout(300 * time.Second)
 
 	pp.MustNavigate(urlOfPublic).MustWaitIdle().MustWaitDOMStable()
 	time.Sleep(1 * time.Second)

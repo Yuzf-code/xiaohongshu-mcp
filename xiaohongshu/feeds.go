@@ -34,12 +34,28 @@ func (f *FeedsListAction) GetFeedsList(ctx context.Context) ([]Feed, error) {
 	time.Sleep(1 * time.Second)
 
 	// 获取 window.__INITIAL_STATE__ 并转换为 JSON 字符串
+	//result := page.MustEval(`() => {
+	//	if (window.__INITIAL_STATE__) {
+	//		return JSON.stringify(window.__INITIAL_STATE__);
+	//	}
+	//	return "";
+	//}`).String()
 	result := page.MustEval(`() => {
-		if (window.__INITIAL_STATE__) {
-			return JSON.stringify(window.__INITIAL_STATE__);
-		}
-		return "";
-	}`).String()
+			function circularReplacer() {
+			  const seen = new WeakSet();
+			  return (key, value) => {
+				if (typeof value === 'object' && value !== null) {
+				  if (seen.has(value)) return '[Circular]';
+				  seen.add(value);
+				}
+				return value;
+			  };
+			}
+			if (window.__INITIAL_STATE__) {
+				return JSON.stringify({feed: {feeds: {_value: window.__INITIAL_STATE__?.feed?.feeds?._value}}}, circularReplacer());
+			}
+			return "";
+		}`).String()
 
 	if result == "" {
 		return nil, fmt.Errorf("__INITIAL_STATE__ not found")
